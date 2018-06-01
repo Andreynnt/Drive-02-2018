@@ -5,7 +5,8 @@ public class AllowedOrigins {
     public enum Origins {
         HEROKU_TEST("https://reallyawesomeapp.herokuapp.com/"),
         LOCALHOST_3000("http://localhost:3000"),
-        HEROKU_DEPLOY("https://frontend-drive.herokuapp.com");
+        HEROKU_DEPLOY("https://frontend-drive.herokuapp.com"),
+        DEPLOY("https://drive-game.me");
 
         private String origin;
 
