@@ -77,6 +77,14 @@ public class RemotePointService {
             this.sendMessageToUser(userId, new ResultMessage(gameSession, userId));
             if (gameSession.needUpdateScore()) {
                 gameSession.saveResults();
+
+                final WebSocketSession webSocketSession1 = sessions.get(gameSession.getUserId1());
+                final WebSocketSession webSocketSession2 = sessions.get(gameSession.getUserId2());
+                this.closeWebScoket(webSocketSession1);
+                this.closeWebScoket(webSocketSession2);
+                sessions.remove(gameSession.getUserId1());
+                sessions.remove(gameSession.getUserId2());
+
                 gameMap.remove(gameSession.getUserId1());
                 gameMap.remove(gameSession.getUserId2());
             }
