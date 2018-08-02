@@ -22,6 +22,10 @@ public class UserModel {
     private Integer score;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private Long id;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    private Integer position;
+    private Integer avatar;
+
 
 
 
@@ -30,12 +34,14 @@ public class UserModel {
                      @JsonProperty("login") String login,
                      @JsonProperty("score") Integer score,
                      @JsonProperty("password") String password,
-                     @JsonProperty("id") Long id) {
+                     @JsonProperty("id") Long id,
+                     @JsonProperty("avatar") Integer avatar){
         this.mail = mail;
         this.password = password;
         this.login = login;
         this.score = score;
         this.id = id;
+        this.avatar = avatar;
     }
 
     public UserModel(String mail, String login, Integer score, String password) {
@@ -45,11 +51,12 @@ public class UserModel {
         this.password = password;
     }
 
-    public UserModel(String mail, String login, Integer score, Long id) {
+    public UserModel(String mail, String login, Integer score, Long id, Integer avatarId) {
         this.mail = mail;
         this.login = login;
         this.score = score;
         this.id = id;
+        this.avatar = avatarId;
     }
 
     public UserModel(String mail, String login, Integer score) {
@@ -104,7 +111,8 @@ public class UserModel {
                 rs.getString("email"),
                 rs.getString("login"),
                 rs.getInt("score"),
-                rs.getLong("id"));
+                rs.getLong("id"),
+                rs.getInt("avatar_id"));
     }
 
 
@@ -127,5 +135,13 @@ public class UserModel {
         return login.equals(otherUser.getLogin())
                 && mail.equals(otherUser.getMail())
                 && score.equals(otherUser.getScore());
+    }
+
+    public Integer getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(Integer avatar) {
+        this.avatar = avatar;
     }
 }

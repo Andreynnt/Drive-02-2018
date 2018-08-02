@@ -40,6 +40,7 @@ public class UsersController {
 
         session.setAttribute("mail", user.getMail());
         user.setScore(0);
+        user.setAvatar(0);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(StatusCodes.returnUser(StatusCodes.SUCCESSES.CREATED, user));
     }
@@ -113,6 +114,25 @@ public class UsersController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(StatusCodes.returnUser(StatusCodes.SUCCESSES.UPDATED, returnedUser));
     }
+
+    @PostMapping(value = "/change-avatar", produces = "application/json")
+    public ResponseEntity changeAvatar(@RequestBody Integer avatar_id, HttpSession session) {
+        final String currentMail = (String) session.getAttribute("mail");
+
+        if (StringUtils.isEmpty(currentMail)) {
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+                    .body(StatusCodes.ERRORS.NOT_LOGINED);
+        }
+        final Integer newAvatar;
+        try {
+            newAvatar = userService.setNewAvatar(avatar_id, currentMail);
+        } catch (DataAccessException e) {
+            return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
+                    .body(StatusCodes.ERRORS.NO_USER);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("{\"avatar_id\":" + newAvatar + "}");
+    }
+
 
 
     @PostMapping(value = "/logout", produces = "application/json")

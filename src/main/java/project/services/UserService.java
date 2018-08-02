@@ -27,7 +27,7 @@ public class UserService {
 
     public UserModel signin(UserModel user) {
         final String sql =
-            "SELECT email, login, score, id FROM users WHERE email = ? AND password = crypt(?, password);";
+            "SELECT email, login, score, id, avatar_id FROM users WHERE email = ? AND password = crypt(?, password);";
         return jdbcTemplate.queryForObject(sql, UserModel::getUser, user.getMail(), user.getPassword());
 
     }
@@ -35,7 +35,7 @@ public class UserService {
 
     public UserModel getUserByMail(String mail) {
         final String sql =
-                "SELECT email, login, score, id FROM users WHERE email = ?";
+                "SELECT email, login, score, id, avatar_id FROM users WHERE email = ?";
         return jdbcTemplate.queryForObject(sql, UserModel::getUser, mail);
     }
 
@@ -70,6 +70,11 @@ public class UserService {
         values.add(sessionMail);
         jdbcTemplate.update(sql, values.toArray());
         return getUserByMail(changedMail);
+    }
+
+    public Integer setNewAvatar(Integer newAvatarId, String mail) {
+        final String sql = "UPDATE users SET avatar_id = ? WHERE email = ? RETURNING avatar_id";
+        return jdbcTemplate.queryForObject(sql, Integer.class, newAvatarId, mail);
     }
 
 
