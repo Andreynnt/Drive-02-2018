@@ -35,7 +35,7 @@ public class UserModel {
                      @JsonProperty("score") Integer score,
                      @JsonProperty("password") String password,
                      @JsonProperty("id") Long id,
-                     @JsonProperty("avatar") Integer avatar){
+                     @JsonProperty("avatar") Integer avatar) {
         this.mail = mail;
         this.password = password;
         this.login = login;

@@ -116,7 +116,7 @@ public class UsersController {
     }
 
     @PostMapping(value = "/change-avatar", produces = "application/json")
-    public ResponseEntity changeAvatar(@RequestBody Integer avatar_id, HttpSession session) {
+    public ResponseEntity changeAvatar(@RequestBody Integer avatarId, HttpSession session) {
         final String currentMail = (String) session.getAttribute("mail");
 
         if (StringUtils.isEmpty(currentMail)) {
@@ -125,7 +125,7 @@ public class UsersController {
         }
         final Integer newAvatar;
         try {
-            newAvatar = userService.setNewAvatar(avatar_id, currentMail);
+            newAvatar = userService.setNewAvatar(avatarId, currentMail);
         } catch (DataAccessException e) {
             return ResponseEntity.status(HttpStatus.METHOD_NOT_ALLOWED)
                     .body(StatusCodes.ERRORS.NO_USER);
