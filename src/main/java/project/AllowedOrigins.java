@@ -6,7 +6,8 @@ public class AllowedOrigins {
         HEROKU_TEST("https://reallyawesomeapp.herokuapp.com/"),
         LOCALHOST_3000("http://localhost:3000"),
         HEROKU_DEPLOY("https://frontend-drive.herokuapp.com"),
-        DEPLOY("https://drive-game.me");
+        DEPLOY("https://drive-game.me"),
+        RAW_NEW_DEPLOY("http://46.101.103.150");
 
         private String origin;
 
